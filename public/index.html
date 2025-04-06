@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventarios - TecOne S.A.</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Plataforma de Gestión de Inventarios - TecOne S.A.</h1>
+    </header>
+
+    <!-- Formulario de Login -->
+    <div id="login" style="display: block;">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" required><br>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" required><br>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <!-- Contenido Principal (oculto por defecto) -->
+    <main style="display: none;">
+        <nav>
+            <button onclick="showSection('registro')">Registrar Producto</button>
+            <button onclick="showSection('existencias')">Control de Existencias</button>
+            <button onclick="showSection('historial')">Historial de Movimientos</button>
+            <button onclick="showSection('reportes')">Reportes</button>
+        </nav>
+
+        <!-- Sección Registro de Productos -->
+        <section id="registro" class="section">
+            <h2>Registrar Nuevo Producto</h2>
+            <form id="productForm">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required><br>
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" required><br>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" min="0" required><br>
+                <label for="precioCompra">Precio de Compra:</label>
+                <input type="number" id="precioCompra" step="0.01" required><br>
+                <label for="precioVenta">Precio de Venta:</label>
+                <input type="number" id="precioVenta" step="0.01" required><br>
+                <label for="stockMinimo">Stock Mínimo:</label>
+                <input type="number" id="stockMinimo" min="0" required><br>
+                <button type="submit">Registrar</button>
+            </form>
+        </section>
+
+        <!-- Sección Control de Existencias -->
+         <!-- Dentro de la sección id="existencias" -->
+        <section id="existencias" class="section" style="display: none;">
+            <h2>Control de Existencias</h2>
+            <button onclick="syncSales()">Sincronizar Ventas</button>
+            <table id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th>ID</th> <!-- Nueva columna -->
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Stock Mínimo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryBody"></tbody>
+            </table>
+        </section> 
+       
+
+        <!-- Sección Historial de Movimientos -->
+        <section id="historial" class="section" style="display: none;">
+            <h2>Historial de Movimientos</h2>
+            <ul id="movementList"></ul>
+        </section>
+
+        <!-- Sección Reportes -->
+        <section id="reportes" class="section" style="display: none;">
+            <h2>Reportes de Inventario</h2>
+            <button onclick="generateReport()">Generar Reporte</button>
+            <p id="reportOutput"></p>
+        </section>
+        <button onclick="logout()" style="position: absolute; top: 10px; right: 10px;">Cerrar Sesión</button>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
