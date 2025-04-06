@@ -2,6 +2,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const path = require('path'); // Importar el módulo path
 const app = express();
 const port = 3000;
 
@@ -13,6 +14,13 @@ const SECRET_KEY = 'xyz_secret_key';
 
 
 
+// Servir archivos estáticos (index.html, ventas.html, menu.html, etc.)
+app.use(express.static(path.join(__dirname, '.')));
+
+// Redirigir la ruta raíz (/) a menu.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'menu.html'));
+});
 // Conexión a la base de datos SQLite
 const db = new sqlite3.Database('./inventory.db', (err) => {
     if (err) {
@@ -125,12 +133,6 @@ initializeDatabase().then(() => {
         };
     }
 
-app.use(express.static(path.join(__dirname, '.')));
-
-// Redirigir la ruta raíz (/) a menu.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'menu.html'));
-});
 // Actualizar el endpoint /login
 // Login
 const bcrypt = require('bcrypt');
