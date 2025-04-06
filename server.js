@@ -11,6 +11,8 @@ app.use(express.json());
 
 const SECRET_KEY = 'xyz_secret_key';
 
+
+
 // Conexión a la base de datos SQLite
 const db = new sqlite3.Database('./inventory.db', (err) => {
     if (err) {
@@ -123,6 +125,12 @@ initializeDatabase().then(() => {
         };
     }
 
+app.use(express.static(path.join(__dirname, '.')));
+
+// Redirigir la ruta raíz (/) a menu.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'menu.html'));
+});
 // Actualizar el endpoint /login
 // Login
 const bcrypt = require('bcrypt');
